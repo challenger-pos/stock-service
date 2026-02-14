@@ -6,6 +6,7 @@ public enum ErrorCodeEnum {
     STOCK0002("Not enough stock", "STOCK-0002"),
     STOCK0003("Invalid quantity", "STOCK-0003"),
     STOCK0004("Quantity must be greater than zero", "STOCK-0004"),
+    STOCK0005("Negative final quantity", "STOCK-0005"),
     ;
 
     private String message;

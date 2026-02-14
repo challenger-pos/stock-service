@@ -41,5 +41,19 @@ public class Stock {
         }
         reserved -= qty;
     }
+
+    public void effective(int qty) throws BusinessRuleException {
+
+        if (qty <= 0 || qty > reserved) {
+            throw new BusinessRuleException(ErrorCodeEnum.STOCK0003.getMessage(), ErrorCodeEnum.STOCK0003.getCode());
+        }
+
+        reserved -= qty;
+        quantity -= qty;
+
+        if (quantity < 0) {
+            throw new BusinessRuleException(ErrorCodeEnum.STOCK0005.getMessage(), ErrorCodeEnum.STOCK0005.getCode());
+        }
+    }
 }
 

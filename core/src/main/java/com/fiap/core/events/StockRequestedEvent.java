@@ -3,7 +3,7 @@ package com.fiap.core.events;
 import java.util.List;
 import java.util.UUID;
 
-public record WorkOrderStockRequestedEvent(
+public record StockRequestedEvent(
         UUID workOrderId,
         List<Item> items
 ) {
