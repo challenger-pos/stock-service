@@ -27,7 +27,7 @@ public class StockRequestListener {
         this.cancelStockReservationUseCase = cancelStockReservationUseCase;
     }
 
-    /*@SqsListener("work-order-stock-requested")
+    @SqsListener("work-order-stock-requested")
     public void onWorkOrderStockRequested(StockRequestedEvent event) throws BusinessRuleException, NotFoundException {
 
         var items = event.items().stream()
@@ -44,7 +44,7 @@ public class StockRequestListener {
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .collect(Collectors.toList());
 
-        effectiveStockReservationUseCase.execute(event.workOrderId(), items);
+        effectiveStockReservationUseCase.execute(items);
     }
 
     @SqsListener("work-order-stock-cancel-requested")
@@ -53,6 +53,6 @@ public class StockRequestListener {
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .collect(Collectors.toList());
 
-        cancelStockReservationUseCase.execute(event.workOrderId(), items);
-    }*/
+        cancelStockReservationUseCase.execute(items);
+    }
 }

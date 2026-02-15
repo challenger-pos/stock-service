@@ -163,6 +163,14 @@
 				<artifactId>spring-cloud-aws-starter-sqs</artifactId>
 				<version>${aws.starter.sqs.version}</version>
 			</dependency>
+
+			<dependency>
+				<groupId>software.amazon.awssdk</groupId>
+				<artifactId>bom</artifactId>
+				<version>${awssdk.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
