@@ -1,6 +1,7 @@
 package com.fiap.message;
 
 import io.awspring.cloud.sqs.operations.SqsTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
@@ -15,6 +16,15 @@ import java.time.Duration;
 @Configuration
 public class SqsConfig {
 
+    @Value("${aws.region:us-east-2}")
+    private String awsRegion;
+
+    @Value("${aws.access-key-id:}")
+    private String awsAccessKey;
+
+    @Value("${aws.secret-access-key:}")
+    private String awsSecretKey;
+
     @Bean
     public SdkAsyncHttpClient httpClient() {
         return NettyNioAsyncHttpClient.builder()
@@ -27,9 +37,21 @@ public class SqsConfig {
 
     @Bean
     public SqsAsyncClient sqsAsyncClient() {
-        return SqsAsyncClient.builder()
-                .region(Region.US_EAST_1)
-                .build();
+        var builder = SqsAsyncClient.builder()
+                .region(Region.of(awsRegion))
+                .httpClient(httpClient());
+
+        // Se credenciais foram fornecidas, use-as (para development/homolog)
+        // Em produção, use IAM Roles (IRSA)
+        if (!awsAccessKey.isEmpty() && !awsSecretKey.isEmpty()) {
+            builder.credentialsProvider(
+                StaticCredentialsProvider.create(
+                    AwsBasicCredentials.create(awsAccessKey, awsSecretKey)
+                )
+            );
+        }
+
+        return builder.build();
     }
 
     @Bean
