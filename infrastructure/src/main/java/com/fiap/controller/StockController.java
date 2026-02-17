@@ -3,12 +3,12 @@ package com.fiap.controller;
 import com.fiap.core.domain.ReservationItem;
 import com.fiap.core.exception.BusinessRuleException;
 import com.fiap.core.exception.NotFoundException;
-import com.fiap.dto.StockCancelReservationRequest;
-import com.fiap.dto.StockEffectiveReservationRequest;
-import com.fiap.dto.StockReservationRequest;
-import com.fiap.usecase.CancelStockReservationUseCase;
-import com.fiap.usecase.EffectiveStockReservationUseCase;
-import com.fiap.usecase.ReserveStockUseCase;
+import com.fiap.dto.stock.StockCancelReservationRequest;
+import com.fiap.dto.stock.StockEffectiveReservationRequest;
+import com.fiap.dto.stock.StockReservationRequest;
+import com.fiap.usecase.stock.CancelStockReservationUseCase;
+import com.fiap.usecase.stock.EffectiveStockReservationUseCase;
+import com.fiap.usecase.stock.ReserveStockUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -40,8 +40,8 @@ public class StockController {
         return ResponseEntity.accepted().build();
     }
 
-    @PostMapping("/reserveApproved")
-    public ResponseEntity<Void> reserveApproved(@RequestBody StockEffectiveReservationRequest request) throws BusinessRuleException{
+    @PostMapping("/approveReserve")
+    public ResponseEntity<Void> reserveApproved(@RequestBody StockEffectiveReservationRequest request) throws BusinessRuleException, NotFoundException {
         var items = request.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .toList();
@@ -52,7 +52,7 @@ public class StockController {
     }
 
     @PostMapping("/cancelReserve")
-    public ResponseEntity<Void> cancelReserve(@RequestBody StockCancelReservationRequest request) throws BusinessRuleException {
+    public ResponseEntity<Void> cancelReserve(@RequestBody StockCancelReservationRequest request) throws BusinessRuleException, NotFoundException {
         var items = request.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .toList();

@@ -2,12 +2,12 @@ package com.fiap.config;
 
 import com.fiap.application.gateway.PartGateway;
 import com.fiap.application.gateway.StockEventPublisherGateway;
-import com.fiap.application.usecaseimpl.CancelStockReservationUseCaseImpl;
-import com.fiap.application.usecaseimpl.EffectiveStockReservationUseCaseImpl;
-import com.fiap.application.usecaseimpl.ReserveStockUseCaseImpl;
-import com.fiap.usecase.CancelStockReservationUseCase;
-import com.fiap.usecase.EffectiveStockReservationUseCase;
-import com.fiap.usecase.ReserveStockUseCase;
+import com.fiap.application.usecaseimpl.stock.CancelStockReservationUseCaseImpl;
+import com.fiap.application.usecaseimpl.stock.EffectiveStockReservationUseCaseImpl;
+import com.fiap.application.usecaseimpl.stock.ReserveStockUseCaseImpl;
+import com.fiap.usecase.stock.CancelStockReservationUseCase;
+import com.fiap.usecase.stock.EffectiveStockReservationUseCase;
+import com.fiap.usecase.stock.ReserveStockUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

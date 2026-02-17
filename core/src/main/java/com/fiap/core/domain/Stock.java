@@ -55,5 +55,12 @@ public class Stock {
             throw new BusinessRuleException(ErrorCodeEnum.STOCK0005.getMessage(), ErrorCodeEnum.STOCK0005.getCode());
         }
     }
+
+    public static Stock of(int stockQuantity, int reservedStock) throws BusinessRuleException {
+        if (stockQuantity < 0 || reservedStock < 0) {
+            throw new BusinessRuleException("Stock values cannot be negative.", "STOCK-001");
+        }
+        return new Stock(stockQuantity, reservedStock);
+    }
 }
 
