@@ -23,8 +23,8 @@ provider "aws" {
 
 # Kubernetes Provider - conecta ao EKS
 provider "kubernetes" {
-  host                   = data.terraform_remote_state.kubernetes.outputs.eks_cluster_endpoint
-  cluster_ca_certificate = base64decode(data.terraform_remote_state.kubernetes.outputs.eks_cluster_certificate_authority)
+  host                   = data.terraform_remote_state.kubernetes.outputs.cluster_endpoint
+  cluster_ca_certificate = base64decode(data.terraform_remote_state.kubernetes.outputs.cluster_certificate_authority_data)
   
   exec {
     api_version = "client.authentication.k8s.io/v1beta1"
@@ -33,7 +33,7 @@ provider "kubernetes" {
       "eks",
       "get-token",
       "--cluster-name",
-      data.terraform_remote_state.kubernetes.outputs.eks_cluster_name,
+        data.terraform_remote_state.kubernetes.outputs.cluster_name,
       "--region",
       "us-east-2"
     ]
@@ -42,8 +42,8 @@ provider "kubernetes" {
 
 provider "helm" {
   kubernetes {
-    host                   = data.terraform_remote_state.kubernetes.outputs.eks_cluster_endpoint
-    cluster_ca_certificate = base64decode(data.terraform_remote_state.kubernetes.outputs.eks_cluster_certificate_authority)
+    host                   = data.terraform_remote_state.kubernetes.outputs.cluster_endpoint
+    cluster_ca_certificate = base64decode(data.terraform_remote_state.kubernetes.outputs.cluster_certificate_authority_data)
     
     exec {
       api_version = "client.authentication.k8s.io/v1beta1"
@@ -52,7 +52,7 @@ provider "helm" {
         "eks",
         "get-token",
         "--cluster-name",
-        data.terraform_remote_state.kubernetes.outputs.eks_cluster_name,
+        data.terraform_remote_state.kubernetes.outputs.cluster_name,
         "--region",
         "us-east-2"
       ]
