@@ -40,7 +40,7 @@ public class StockController {
         return ResponseEntity.accepted().build();
     }
 
-    @PostMapping("/approveReserve")
+    @PostMapping("/approve-reserve")
     public ResponseEntity<Void> reserveApproved(@RequestBody StockEffectiveReservationRequest request) throws BusinessRuleException, NotFoundException {
         var items = request.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
@@ -51,7 +51,7 @@ public class StockController {
         return ResponseEntity.accepted().build();
     }
 
-    @PostMapping("/cancelReserve")
+    @PostMapping("/cancel-reserve")
     public ResponseEntity<Void> cancelReserve(@RequestBody StockCancelReservationRequest request) throws BusinessRuleException, NotFoundException {
         var items = request.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
