@@ -1,14 +1,14 @@
-package com.fiap.application.usecaseimpl;
+package com.fiap.application.usecaseimpl.stock;
 
 import com.fiap.application.gateway.PartGateway;
 import com.fiap.core.domain.Part;
 import com.fiap.core.domain.ReservationItem;
 import com.fiap.core.domain.Stock;
 import com.fiap.core.exception.BusinessRuleException;
-import com.fiap.usecase.CancelStockReservationUseCase;
+import com.fiap.core.exception.NotFoundException;
+import com.fiap.usecase.stock.CancelStockReservationUseCase;
 
 import java.util.List;
-import java.util.UUID;
 
 public class CancelStockReservationUseCaseImpl implements CancelStockReservationUseCase {
 
@@ -19,7 +19,7 @@ public class CancelStockReservationUseCaseImpl implements CancelStockReservation
     }
 
     @Override
-    public void execute(List<ReservationItem> items) throws BusinessRuleException {
+    public void execute(List<ReservationItem> items) throws BusinessRuleException, NotFoundException {
 
         for (ReservationItem item : items) {
 

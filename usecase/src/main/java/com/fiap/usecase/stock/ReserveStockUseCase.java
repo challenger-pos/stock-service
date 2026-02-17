@@ -1,4 +1,4 @@
-package com.fiap.usecase;
+package com.fiap.usecase.stock;
 
 import com.fiap.core.domain.ReservationItem;
 import com.fiap.core.exception.BusinessRuleException;

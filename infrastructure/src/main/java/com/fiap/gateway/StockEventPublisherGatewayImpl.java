@@ -12,10 +12,10 @@ public class StockEventPublisherGatewayImpl implements StockEventPublisherGatewa
 
     private final SqsTemplate template;
 
-    @Value("${sqs.queue.stock-reserved:challengeone-stock-reserved-queue-homolog}")
+    @Value("${sqs.queue.stock-reserved:stock-reserved-queue}")
     private String stockReservedQueue;
 
-    @Value("${sqs.queue.stock-failed:challengeone-stock-failed-queue-homolog}")
+    @Value("${sqs.queue.stock-failed:stock-failed-queue}")
     private String stockFailedQueue;
 
     public StockEventPublisherGatewayImpl(SqsTemplate template) {

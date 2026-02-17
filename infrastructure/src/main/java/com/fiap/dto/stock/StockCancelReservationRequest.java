@@ -1,9 +1,9 @@
-package com.fiap.dto;
+package com.fiap.dto.stock;
 
 import java.util.List;
 import java.util.UUID;
 
-public record StockEffectiveReservationRequest(
+public record StockCancelReservationRequest(
         List<Item> items
 ) {
     public record Item(

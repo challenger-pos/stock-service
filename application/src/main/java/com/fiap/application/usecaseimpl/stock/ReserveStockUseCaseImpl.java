@@ -1,4 +1,4 @@
-package com.fiap.application.usecaseimpl;
+package com.fiap.application.usecaseimpl.stock;
 
 import com.fiap.application.gateway.PartGateway;
 import com.fiap.application.gateway.StockEventPublisherGateway;
@@ -8,7 +8,7 @@ import com.fiap.core.events.StockFailedEvent;
 import com.fiap.core.events.StockReservedEvent;
 import com.fiap.core.exception.NotFoundException;
 import com.fiap.core.exception.enums.ErrorCodeEnum;
-import com.fiap.usecase.ReserveStockUseCase;
+import com.fiap.usecase.stock.ReserveStockUseCase;
 
 import java.util.List;
 import java.util.UUID;

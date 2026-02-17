@@ -7,6 +7,7 @@ public enum ErrorCodeEnum {
     STOCK0003("Invalid quantity", "STOCK-0003"),
     STOCK0004("Quantity must be greater than zero", "STOCK-0004"),
     STOCK0005("Negative final quantity", "STOCK-0005"),
+    STOCK0006("Invalid data recovered from the database for Part entity", "STOCK-0006"),
     ;
 
     private String message;
