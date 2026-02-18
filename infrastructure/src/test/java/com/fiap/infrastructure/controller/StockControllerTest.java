@@ -76,7 +76,7 @@ class StockControllerTest {
             }
             """.formatted(part1);
 
-        mockMvc.perform(post("/stock/approveReserve")
+        mockMvc.perform(post("/stock/approve-reserve")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isAccepted());
@@ -97,7 +97,7 @@ class StockControllerTest {
             }
             """.formatted(part1);
 
-        mockMvc.perform(post("/stock/cancelReserve")
+        mockMvc.perform(post("/stock/cancel-reserve")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isAccepted());

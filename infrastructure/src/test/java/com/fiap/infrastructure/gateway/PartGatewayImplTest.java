@@ -16,9 +16,11 @@ import org.mockito.MockitoAnnotations;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
 class PartGatewayImplTest {
@@ -85,5 +87,65 @@ class PartGatewayImplTest {
         verify(partMapper).toEntity(domainPart);
         verify(partRepository).save(entityPart);
         verify(partMapper, never()).toDomain(any(PartEntity.class));
+    }
+
+    @Test
+    void shouldCreatePartAndReturnDomain() throws BusinessRuleException {
+        when(partMapper.toEntity(domainPart)).thenReturn(entityPart);
+        when(partRepository.save(entityPart)).thenReturn(entityPart);
+        when(partMapper.toDomain(entityPart)).thenReturn(domainPart);
+
+        Part result = partGateway.create(domainPart);
+
+        assertNotNull(result);
+        assertEquals(domainPart, result);
+
+        verify(partMapper).toEntity(domainPart);
+        verify(partRepository).save(entityPart);
+        verify(partMapper).toDomain(entityPart);
+    }
+
+    @Test
+    void shouldUpdatePartAndReturnDomain() throws BusinessRuleException {
+        when(partMapper.toEntity(domainPart)).thenReturn(entityPart);
+        when(partRepository.save(entityPart)).thenReturn(entityPart);
+        when(partMapper.toDomain(entityPart)).thenReturn(domainPart);
+
+        Part result = partGateway.update(domainPart);
+
+        assertNotNull(result);
+        assertEquals(domainPart, result);
+
+        verify(partMapper).toEntity(domainPart);
+        verify(partRepository).save(entityPart);
+        verify(partMapper).toDomain(entityPart);
+    }
+
+    @Test
+    void shouldDeleteById() {
+        partGateway.delete(id);
+
+        verify(partRepository).deleteById(id);
+    }
+
+    @Test
+    void shouldSaveAllParts() {
+        var parts = List.of(domainPart);
+        when(partMapper.toEntity(domainPart)).thenReturn(entityPart);
+
+        partGateway.saveAll(parts);
+
+        verify(partMapper).toEntity(domainPart);
+        verify(partRepository).saveAll(anyList());
+    }
+
+    @Test
+    void shouldReturnExistsById() {
+        when(partRepository.existsById(id)).thenReturn(true);
+
+        boolean exists = partGateway.existsById(id);
+
+        assertTrue(exists);
+        verify(partRepository).existsById(id);
     }
 }
