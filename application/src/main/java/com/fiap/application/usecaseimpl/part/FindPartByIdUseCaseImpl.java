@@ -18,7 +18,6 @@ public class FindPartByIdUseCaseImpl implements FindPartByIdUseCase {
 
     @Override
     public Part execute(UUID id) throws NotFoundException, BusinessRuleException {
-        return partGateway.findById(id)
-                .orElseThrow(() -> new NotFoundException("Part com ID " + id + " não encontrada.", "PART-404"));
+        return partGateway.findById(id);
     }
 }

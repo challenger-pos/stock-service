@@ -1,6 +1,8 @@
 package com.fiap.message;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
+import io.awspring.cloud.sqs.support.converter.SqsMessagingMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +26,14 @@ public class SqsConfig {
 
     @Value("${aws.secret-access-key:}")
     private String awsSecretKey;
+
+    @Bean
+    public SqsMessagingMessageConverter sqsMessageConverter(ObjectMapper objectMapper) {
+        SqsMessagingMessageConverter converter = new SqsMessagingMessageConverter();
+        converter.setPayloadTypeHeader("eventType");
+        converter.setObjectMapper(objectMapper);
+        return converter;
+    }
 
     @Bean
     public SdkAsyncHttpClient httpClient() {
@@ -55,7 +65,12 @@ public class SqsConfig {
     }
 
     @Bean
-    public SqsTemplate sqsTemplate(SqsAsyncClient client) {
-        return SqsTemplate.newTemplate(client);
+    public SqsTemplate sqsTemplate(SqsAsyncClient client,
+                                   SqsMessagingMessageConverter converter) {
+
+        return SqsTemplate.builder()
+                .sqsAsyncClient(client)
+                .messageConverter(converter)
+                .build();
     }
 }

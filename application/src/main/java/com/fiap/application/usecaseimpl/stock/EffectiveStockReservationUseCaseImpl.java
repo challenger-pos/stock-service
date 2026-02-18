@@ -23,7 +23,7 @@ public class EffectiveStockReservationUseCaseImpl implements EffectiveStockReser
 
         for (ReservationItem item : items) {
 
-            Part part = partGateway.findById(item.partId()).get();
+            Part part = partGateway.findById(item.partId());
 
             Stock stock = part.getStock();
 

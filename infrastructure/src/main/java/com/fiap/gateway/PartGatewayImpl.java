@@ -11,7 +11,6 @@ import com.fiap.persistence.repository.PartJpaRepository;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -26,9 +25,9 @@ public class PartGatewayImpl implements PartGateway {
     }
 
     @Override
-    public Optional<Part> findById(UUID id) throws NotFoundException, BusinessRuleException {
+    public Part findById(UUID id) throws NotFoundException, BusinessRuleException {
         PartEntity partEntity = repository.findById(id).orElseThrow(() -> new NotFoundException(ErrorCodeEnum.STOCK0001.getMessage(), ErrorCodeEnum.STOCK0001.getCode()));
-        return Optional.ofNullable(partMapper.toDomain(partEntity));
+        return partMapper.toDomain(partEntity);
     }
 
     @Override
