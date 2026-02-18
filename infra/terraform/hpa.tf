@@ -52,6 +52,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "stock_service" {
     behavior {
       scale_down {
         stabilization_window_seconds = 300  # 5 min aguardando antes de scale down
+        select_policy = "Max"
         policy {
           type           = "Percent"
           value          = 50
@@ -61,6 +62,7 @@ resource "kubernetes_horizontal_pod_autoscaler_v2" "stock_service" {
 
       scale_up {
         stabilization_window_seconds = 0  # Scale up imediato
+        select_policy = "Max"
         policy {
           type           = "Percent"
           value          = 100
