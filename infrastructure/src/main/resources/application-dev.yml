@@ -1,0 +1,25 @@
+# Dev Profile Configuration
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+# Logging for Dev
+logging:
+  level:
+    root: INFO
+    com.fiap: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: WARN
+    org.hibernate: WARN
+    io.awspring.cloud.sqs: DEBUG
+    software.amazon.awssdk: INFO
+
+# Datadog (disabled in dev)
+dd:
+  trace:
+    enabled: false
+
+# AWS SQS Configuration
+aws:
+  region: ${AWS_REGION:us-east-2}
