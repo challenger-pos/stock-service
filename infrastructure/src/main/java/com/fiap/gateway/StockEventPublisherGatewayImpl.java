@@ -5,9 +5,11 @@ import com.fiap.core.events.StockFailedEvent;
 import com.fiap.core.events.StockReservedEvent;
 import io.awspring.cloud.sqs.operations.SqsTemplate;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 @Component
+@ConditionalOnProperty(name = "aws.sqs.enabled", havingValue = "true", matchIfMissing = true)
 public class StockEventPublisherGatewayImpl implements StockEventPublisherGateway {
 
     private final SqsTemplate template;

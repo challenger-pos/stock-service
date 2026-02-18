@@ -10,11 +10,13 @@ import com.fiap.usecase.stock.CancelStockReservationUseCase;
 import com.fiap.usecase.stock.EffectiveStockReservationUseCase;
 import com.fiap.usecase.stock.ReserveStockUseCase;
 import io.awspring.cloud.sqs.annotation.SqsListener;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
 @Component
+@ConditionalOnProperty(name = "aws.sqs.enabled", havingValue = "true", matchIfMissing = true)
 public class StockRequestListener {
 
     private final ReserveStockUseCase reserveStockUseCase;
