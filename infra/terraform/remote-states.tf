@@ -7,7 +7,7 @@ data "terraform_remote_state" "kubernetes" {
   backend = "s3"
   config = {
     bucket = "tf-state-challenge-bucket"
-    key    = "kubernetes/${var.environment}/terraform.tfstate"
+    key    = "v4/kubernetes/dev/terraform.tfstate"
     region = "us-east-2"
   }
 }
@@ -17,7 +17,7 @@ data "terraform_remote_state" "rds_stock" {
   backend = "s3"
   config = {
     bucket = "tf-state-challenge-bucket"
-    key    = "rds-stock/${var.environment}/terraform.tfstate"
+    key    = "v4/rds-stock/dev/terraform.tfstate"
     region = "us-east-2"
   }
 }
