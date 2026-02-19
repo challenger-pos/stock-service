@@ -173,6 +173,22 @@ variable "jwt_secret" {
 }
 
 # ===============================================
+# DATADOG
+# ===============================================
+
+variable "datadog_agent_host" {
+  description = "Hostname do Datadog Agent no cluster (ex.: datadog-agent.default.svc.cluster.local)"
+  type        = string
+  default     = "datadog-agent.default.svc.cluster.local"
+}
+
+variable "app_version" {
+  description = "Versão da aplicação (usado em DD_VERSION e labels Datadog)"
+  type        = string
+  default     = "1.0.0"
+}
+
+# ===============================================
 # TAGS
 # ===============================================
 

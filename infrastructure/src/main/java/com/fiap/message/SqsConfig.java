@@ -15,16 +15,21 @@ import software.amazon.awssdk.services.sqs.SqsAsyncClient;
 
 import java.time.Duration;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+
 @Configuration
+@ConditionalOnProperty(name = "aws.sqs.enabled", havingValue = "true", matchIfMissing = true)
 public class SqsConfig {
 
-    @Value("${aws.region:us-east-2}")
+    @Value("${aws.region:${spring.cloud.aws.region.static:us-east-2}}")
     private String awsRegion;
 
-    @Value("${aws.access-key-id:}")
+    /** Supports aws.access-key-id (Terraform/env) or spring.cloud.aws.credentials.access-key */
+    @Value("${aws.access-key-id:${spring.cloud.aws.credentials.access-key:}}")
     private String awsAccessKey;
 
-    @Value("${aws.secret-access-key:}")
+    /** Supports aws.secret-access-key (Terraform/env) or spring.cloud.aws.credentials.secret-key */
+    @Value("${aws.secret-access-key:${spring.cloud.aws.credentials.secret-key:}}")
     private String awsSecretKey;
 
     @Bean

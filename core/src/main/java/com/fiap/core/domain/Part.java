@@ -20,6 +20,5 @@ public class Part {
     private Money price;
     private OffsetDateTime createdAt;
     private OffsetDateTime updatedAt;
-
 }
 

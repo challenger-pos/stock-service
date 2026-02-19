@@ -29,10 +29,33 @@ resource "kubernetes_deployment" "stock_service" {
           app         = var.app_name
           service     = var.service
           environment = var.environment
+
+          # Datadog labels
+          "tags.datadoghq.com/env"     = var.environment
+          "tags.datadoghq.com/service" = var.service
+          "tags.datadoghq.com/version"  = var.app_version
+          "admission.datadoghq.com/enabled" = "true"
         }
       }
 
       spec {
+        # Volume for Datadog Java Agent
+        volume {
+          name = "dd-java-agent"
+          empty_dir {}
+        }
+
+        # InitContainer: download Datadog Java Agent
+        init_container {
+          name  = "dd-java-agent-init"
+          image = "curlimages/curl:8.10.1"
+          command = ["sh", "-c", "curl -L -o /dd/dd-java-agent.jar https://dtdg.co/latest-java-tracer"]
+          volume_mount {
+            name       = "dd-java-agent"
+            mount_path = "/dd"
+          }
+        }
+
         container {
           name  = var.app_name
           image = var.docker_image
@@ -40,6 +63,44 @@ resource "kubernetes_deployment" "stock_service" {
           port {
             container_port = var.app_port
             protocol       = "TCP"
+          }
+
+          # Datadog Java Agent and env vars (explicit so Agent/StatsD are reachable)
+          env {
+            name  = "JAVA_TOOL_OPTIONS"
+            value = "-javaagent:/dd/dd-java-agent.jar"
+          }
+          env {
+            name  = "DD_SERVICE"
+            value = var.service
+          }
+          env {
+            name  = "DD_ENV"
+            value = var.environment
+          }
+          env {
+            name  = "DD_VERSION"
+            value = var.app_version
+          }
+          env {
+            name  = "DD_LOGS_INJECTION"
+            value = "true"
+          }
+          env {
+            name  = "DD_AGENT_HOST"
+            value = var.datadog_agent_host
+          }
+          env {
+            name  = "DD_DOGSTATSD_PORT"
+            value = "8125"
+          }
+          env {
+            name  = "DATADOG_STATSD_HOST"
+            value = var.datadog_agent_host
+          }
+          env {
+            name  = "DATADOG_STATSD_PORT"
+            value = "8125"
           }
 
           # Environment variables from ConfigMap
@@ -54,6 +115,11 @@ resource "kubernetes_deployment" "stock_service" {
             secret_ref {
               name = kubernetes_secret.app_secret.metadata[0].name
             }
+          }
+
+          volume_mount {
+            name       = "dd-java-agent"
+            mount_path = "/dd"
           }
 
           # Resource limits
