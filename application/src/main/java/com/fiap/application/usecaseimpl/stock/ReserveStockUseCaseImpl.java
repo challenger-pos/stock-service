@@ -29,14 +29,13 @@ public class ReserveStockUseCaseImpl implements ReserveStockUseCase {
 
         try {
             for (ReservationItem item : items) {
-                Part part = partGateway.findById(item.partId())
-                        .orElseThrow(() -> new NotFoundException(ErrorCodeEnum.STOCK0001.getMessage(), ErrorCodeEnum.STOCK0001.getCode()));
+                Part part = partGateway.findById(item.partId());
 
                 part.getStock().reserve(item.quantity());
             }
 
             for (ReservationItem item : items) {
-                Part part = partGateway.findById(item.partId()).get();
+                Part part = partGateway.findById(item.partId());
                 part.getStock().reserve(item.quantity());
                 partGateway.save(part);
             }

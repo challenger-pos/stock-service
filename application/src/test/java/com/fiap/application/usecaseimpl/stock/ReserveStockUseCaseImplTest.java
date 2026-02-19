@@ -17,7 +17,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.mockito.Mockito.*;
@@ -47,7 +46,7 @@ class ReserveStockUseCaseImplTest {
         when(item.partId()).thenReturn(UUID.randomUUID());
         when(item.quantity()).thenReturn(3);
 
-        when(partGateway.findById(item.partId())).thenReturn(Optional.of(part));
+        when(partGateway.findById(item.partId())).thenReturn(part);
         when(part.getStock()).thenReturn(stock);
 
         ReserveStockUseCase useCase = new ReserveStockUseCaseImpl(partGateway, publisher);
@@ -74,7 +73,7 @@ class ReserveStockUseCaseImplTest {
 
         when(item.partId()).thenReturn(UUID.randomUUID());
         when(partGateway.findById(item.partId()))
-                .thenReturn(Optional.empty());
+            .thenThrow(new NotFoundException("Part not found", "PART-404"));
 
         ReserveStockUseCase useCase = new ReserveStockUseCaseImpl(partGateway, publisher);
 
@@ -91,7 +90,7 @@ class ReserveStockUseCaseImplTest {
         when(item.partId()).thenReturn(UUID.randomUUID());
         when(item.quantity()).thenReturn(2);
 
-        when(partGateway.findById(item.partId())).thenReturn(Optional.of(part));
+        when(partGateway.findById(item.partId())).thenReturn(part);
         when(part.getStock()).thenReturn(stock);
 
         doThrow(new RuntimeException("boom")).when(stock).reserve(anyInt());

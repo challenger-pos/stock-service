@@ -9,7 +9,7 @@
 # Queue: work-order-stock-requested
 # Receives stock reservation requests from work orders
 resource "aws_sqs_queue" "stock_requested" {
-  name                       = "${var.project}-work-order-stock-requested-${var.environment}"
+  name                       = "work-order-stock-requested-${var.environment}"
   delay_seconds              = 0
   max_message_size           = 262144  # 256 KB
   message_retention_seconds  = 1209600 # 14 days
@@ -25,7 +25,7 @@ resource "aws_sqs_queue" "stock_requested" {
   tags = merge(
     var.tags,
     {
-      Name        = "${var.project}-work-order-stock-requested-${var.environment}"
+      Name        = "work-order-stock-requested-${var.environment}"
       Consumer    = "stock-service"
       MessageType = "StockRequestedEvent"
     }
@@ -33,13 +33,13 @@ resource "aws_sqs_queue" "stock_requested" {
 }
 
 resource "aws_sqs_queue" "stock_requested_dlq" {
-  name                      = "${var.project}-work-order-stock-requested-dlq-${var.environment}"
+  name                      = "work-order-stock-requested-dlq-${var.environment}"
   message_retention_seconds = 1209600 # 14 days
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-work-order-stock-requested-dlq-${var.environment}"
+      Name = "work-order-stock-requested-dlq-${var.environment}"
       Type = "DeadLetterQueue"
     }
   )
@@ -48,7 +48,7 @@ resource "aws_sqs_queue" "stock_requested_dlq" {
 # Queue: work-order-stock-approved
 # Receives stock approval events to finalize reservation
 resource "aws_sqs_queue" "stock_approved" {
-  name                       = "${var.project}-work-order-stock-approved-${var.environment}"
+  name                       = "work-order-stock-approved-${var.environment}"
   delay_seconds              = 0
   max_message_size           = 262144
   message_retention_seconds  = 1209600
@@ -63,7 +63,7 @@ resource "aws_sqs_queue" "stock_approved" {
   tags = merge(
     var.tags,
     {
-      Name        = "${var.project}-work-order-stock-approved-${var.environment}"
+      Name        = "work-order-stock-approved-${var.environment}"
       Consumer    = "stock-service"
       MessageType = "StockApprovedEvent"
     }
@@ -71,13 +71,13 @@ resource "aws_sqs_queue" "stock_approved" {
 }
 
 resource "aws_sqs_queue" "stock_approved_dlq" {
-  name                      = "${var.project}-work-order-stock-approved-dlq-${var.environment}"
+  name                      = "work-order-stock-approved-dlq-${var.environment}"
   message_retention_seconds = 1209600
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-work-order-stock-approved-dlq-${var.environment}"
+      Name = "work-order-stock-approved-dlq-${var.environment}"
       Type = "DeadLetterQueue"
     }
   )
@@ -86,7 +86,7 @@ resource "aws_sqs_queue" "stock_approved_dlq" {
 # Queue: work-order-stock-cancel-requested
 # Receives stock cancellation requests
 resource "aws_sqs_queue" "stock_cancel_requested" {
-  name                       = "${var.project}-work-order-stock-cancel-requested-${var.environment}"
+  name                       = "work-order-stock-cancel-requested-${var.environment}"
   delay_seconds              = 0
   max_message_size           = 262144
   message_retention_seconds  = 1209600
@@ -101,7 +101,7 @@ resource "aws_sqs_queue" "stock_cancel_requested" {
   tags = merge(
     var.tags,
     {
-      Name        = "${var.project}-work-order-stock-cancel-requested-${var.environment}"
+      Name        = "work-order-stock-cancel-requested-${var.environment}"
       Consumer    = "stock-service"
       MessageType = "StockCancelRequestedEvent"
     }
@@ -109,13 +109,13 @@ resource "aws_sqs_queue" "stock_cancel_requested" {
 }
 
 resource "aws_sqs_queue" "stock_cancel_requested_dlq" {
-  name                      = "${var.project}-work-order-stock-cancel-requested-dlq-${var.environment}"
+  name                      = "work-order-stock-cancel-requested-dlq-${var.environment}"
   message_retention_seconds = 1209600
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-work-order-stock-cancel-requested-dlq-${var.environment}"
+      Name = "work-order-stock-cancel-requested-dlq-${var.environment}"
       Type = "DeadLetterQueue"
     }
   )
@@ -128,7 +128,7 @@ resource "aws_sqs_queue" "stock_cancel_requested_dlq" {
 # Queue: stock-reserved-queue
 # Publishes when stock reservation is successful
 resource "aws_sqs_queue" "stock_reserved" {
-  name                       = "${var.project}-stock-reserved-queue-${var.environment}"
+  name                       = "stock-reserved-queue-${var.environment}"
   delay_seconds              = 0
   max_message_size           = 262144
   message_retention_seconds  = 1209600
@@ -143,7 +143,7 @@ resource "aws_sqs_queue" "stock_reserved" {
   tags = merge(
     var.tags,
     {
-      Name        = "${var.project}-stock-reserved-queue-${var.environment}"
+      Name        = "stock-reserved-queue-${var.environment}"
       Publisher   = "stock-service"
       MessageType = "StockReservedEvent"
     }
@@ -151,13 +151,13 @@ resource "aws_sqs_queue" "stock_reserved" {
 }
 
 resource "aws_sqs_queue" "stock_reserved_dlq" {
-  name                      = "${var.project}-stock-reserved-queue-dlq-${var.environment}"
+  name                      = "stock-reserved-queue-dlq-${var.environment}"
   message_retention_seconds = 1209600
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-stock-reserved-queue-dlq-${var.environment}"
+      Name = "stock-reserved-queue-dlq-${var.environment}"
       Type = "DeadLetterQueue"
     }
   )
@@ -166,7 +166,7 @@ resource "aws_sqs_queue" "stock_reserved_dlq" {
 # Queue: stock-failed-queue
 # Publishes when stock reservation fails
 resource "aws_sqs_queue" "stock_failed" {
-  name                       = "${var.project}-stock-failed-queue-${var.environment}"
+  name                       = "stock-failed-queue-${var.environment}"
   delay_seconds              = 0
   max_message_size           = 262144
   message_retention_seconds  = 1209600
@@ -181,7 +181,7 @@ resource "aws_sqs_queue" "stock_failed" {
   tags = merge(
     var.tags,
     {
-      Name        = "${var.project}-stock-failed-queue-${var.environment}"
+      Name        = "stock-failed-queue-${var.environment}"
       Publisher   = "stock-service"
       MessageType = "StockFailedEvent"
     }
@@ -189,13 +189,13 @@ resource "aws_sqs_queue" "stock_failed" {
 }
 
 resource "aws_sqs_queue" "stock_failed_dlq" {
-  name                      = "${var.project}-stock-failed-queue-dlq-${var.environment}"
+  name                      = "stock-failed-queue-dlq-${var.environment}"
   message_retention_seconds = 1209600
 
   tags = merge(
     var.tags,
     {
-      Name = "${var.project}-stock-failed-queue-dlq-${var.environment}"
+      Name = "stock-failed-queue-dlq-${var.environment}"
       Type = "DeadLetterQueue"
     }
   )

@@ -11,10 +11,12 @@ import com.fiap.usecase.stock.EffectiveStockReservationUseCase;
 import com.fiap.usecase.stock.ReserveStockUseCase;
 import io.awspring.cloud.sqs.annotation.SqsListener;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.stream.Collectors;
 
+@Slf4j
 @Component
 @ConditionalOnProperty(name = "aws.sqs.enabled", havingValue = "true", matchIfMissing = true)
 public class StockRequestListener {
@@ -31,6 +33,7 @@ public class StockRequestListener {
 
     @SqsListener("${sqs.queue.stock-requested:work-order-stock-requested}")
     public void onWorkOrderStockRequested(StockRequestedEvent event) throws BusinessRuleException, NotFoundException {
+        log.info("Received StockRequestedEvent: {}", event);
         var items = event.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .collect(Collectors.toList());
@@ -40,6 +43,7 @@ public class StockRequestListener {
 
     @SqsListener("${sqs.queue.stock-approved:work-order-stock-approved}")
     public void onWorkOrderStockApproved(StockApprovedEvent event) throws BusinessRuleException, NotFoundException {
+        log.info("Received StockApprovedEvent: {}", event);
         var items = event.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .collect(Collectors.toList());
@@ -49,6 +53,7 @@ public class StockRequestListener {
 
     @SqsListener("${sqs.queue.stock-cancel-requested:work-order-stock-cancel-requested}")
     public void onStockCancel(StockCancelRequestedEvent event) throws BusinessRuleException, NotFoundException {
+        log.info("Received StockCancelRequestedEvent: {}", event);
         var items = event.items().stream()
                 .map(i -> new ReservationItem(i.partId(), i.quantity()))
                 .collect(Collectors.toList());

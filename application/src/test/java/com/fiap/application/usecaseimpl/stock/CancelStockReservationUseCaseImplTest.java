@@ -13,7 +13,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -41,7 +40,7 @@ class CancelStockReservationUseCaseImplTest {
         when(item.partId()).thenReturn(partId);
         when(item.quantity()).thenReturn(5);
 
-        when(partGateway.findById(partId)).thenReturn(Optional.of(part));
+        when(partGateway.findById(partId)).thenReturn(part);
         when(part.getStock()).thenReturn(stock);
 
         CancelStockReservationUseCaseImpl useCase =
@@ -64,13 +63,13 @@ class CancelStockReservationUseCaseImplTest {
         UUID partId = UUID.randomUUID();
 
         when(item.partId()).thenReturn(partId);
-        when(partGateway.findById(partId)).thenReturn(Optional.empty());
+        when(partGateway.findById(partId)).thenThrow(new NotFoundException("Part not found", "PART-404"));
 
         CancelStockReservationUseCaseImpl useCase =
                 new CancelStockReservationUseCaseImpl(partGateway);
 
         assertThrows(
-                java.util.NoSuchElementException.class,
+                NotFoundException.class,
                 () -> useCase.execute(List.of(item))
         );
     }
@@ -82,7 +81,7 @@ class CancelStockReservationUseCaseImplTest {
         when(item.partId()).thenReturn(partId);
         when(item.quantity()).thenReturn(2);
 
-        when(partGateway.findById(partId)).thenReturn(Optional.of(part));
+        when(partGateway.findById(partId)).thenReturn(part);
         when(part.getStock()).thenReturn(stock);
 
         doThrow(new RuntimeException("Erro na liberação"))

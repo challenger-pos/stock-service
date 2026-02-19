@@ -14,7 +14,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import java.util.Optional;
 import java.util.UUID;
 import java.util.List;
 
@@ -56,13 +55,13 @@ class PartGatewayImplTest {
 
     @Test
     void shouldReturnPartWhenFound() throws BusinessRuleException, NotFoundException {
-        when(partRepository.findById(id)).thenReturn(Optional.of(entityPart));
+        when(partRepository.findById(id)).thenReturn(java.util.Optional.of(entityPart));
         when(partMapper.toDomain(entityPart)).thenReturn(domainPart);
 
-        Optional<Part> result = partGateway.findById(id);
+        Part result = partGateway.findById(id);
 
-        assertTrue(result.isPresent());
-        assertEquals(domainPart, result.get());
+        assertNotNull(result);
+        assertEquals(domainPart, result);
 
         verify(partRepository).findById(id);
         verify(partMapper).toDomain(entityPart);
@@ -70,7 +69,7 @@ class PartGatewayImplTest {
 
     @Test
     void shouldThrowNotFoundExceptionWhenPartNotFound() throws BusinessRuleException {
-        when(partRepository.findById(id)).thenReturn(Optional.empty());
+        when(partRepository.findById(id)).thenReturn(java.util.Optional.empty());
 
         assertThrows(NotFoundException.class, () -> partGateway.findById(id));
 

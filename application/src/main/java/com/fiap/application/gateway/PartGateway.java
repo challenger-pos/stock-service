@@ -5,11 +5,10 @@ import com.fiap.core.exception.BusinessRuleException;
 import com.fiap.core.exception.NotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 public interface PartGateway {
-    Optional<Part> findById(UUID id) throws NotFoundException, BusinessRuleException;
+    Part findById(UUID id) throws NotFoundException, BusinessRuleException;
     void save(Part part);
     Part create(Part part) throws BusinessRuleException;
     void saveAll(List<Part> parts);
