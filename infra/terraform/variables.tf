@@ -198,7 +198,6 @@ variable "tags" {
   default     = {
     Project     = "ChallengeOne"
     Service     = "Stock"
-    Environment = "Dev"
     ManagedBy   = "Terraform"
     Team        = "Platform"
   }
