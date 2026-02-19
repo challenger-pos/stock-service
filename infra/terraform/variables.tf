@@ -61,13 +61,13 @@ variable "cpu_limit" {
 variable "mem_request" {
   description = "Memory request"
   type        = string
-  default     = "512Mi"
+  default     = "256Mi"
 }
 
 variable "mem_limit" {
   description = "Memory limit"
   type        = string
-  default     = "1Gi"
+  default     = "512Gi"
 }
 
 # AUTOSCALING
@@ -81,7 +81,7 @@ variable "hpa_min_replicas" {
 variable "hpa_max_replicas" {
   description = "Máximo de réplicas do HPA"
   type        = number
-  default     = 3
+  default     = 2
 }
 
 variable "hpa_target_cpu_percentage" {

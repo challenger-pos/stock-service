@@ -78,3 +78,8 @@ output "sqs_stock_failed_arn" {
   description = "ARN da fila stock-failed-queue"
   value       = aws_sqs_queue.stock_failed.arn
 }
+
+output "stock_lb_name" {
+  description = "Nome do Load Balancer do Stock Service"
+  value       = "${var.service}-service-lb-${var.environment}"
+}
