@@ -35,7 +35,7 @@ jobs:
   push-and-deploy:
     name: Push Image & Deploy Infra
     runs-on: ubuntu-latest
-    environment: ${{ github.ref_name == 'main' && 'production' || (github.ref_name == 'homologation' && 'homologation' || 'develop') }}
+    environment: ${{ github.ref_name == 'main' && 'production' || (github.ref_name == 'homologation' && 'homologation' || 'dev') }}
     needs: build-and-test
 
     env:
