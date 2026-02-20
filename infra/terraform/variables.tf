@@ -17,7 +17,6 @@ variable "environment" {
   type        = string
   default     = "dev"
 }
-  # Sem default - deve ser fornecido via tfvars
 
 # APLICAÇÃO
 
