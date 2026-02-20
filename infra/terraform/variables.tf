@@ -35,7 +35,7 @@ variable "app_port" {
 variable "docker_image" {
   description = "Imagem Docker da aplicação"
   type        = string
-  default     = "luigigb/stock-service:latest"
+  default     = "thiagofrederico/stock-service:latest"
 }
 
 # RECURSOS KUBERNETES
