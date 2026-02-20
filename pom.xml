@@ -45,8 +45,12 @@
 		<aws.starter.sqs.version>3.1.1</aws.starter.sqs.version>
 		<!-- Sonar configuration properties -->
 		<sonar.host.url>https://sonarcloud.io</sonar.host.url>
-		<sonar.organization>fiap-tech-challenge</sonar.organization>
-		<sonar.coverage.jacoco.xmlReportPaths>core/target/site/jacoco/jacoco.xml,application/target/site/jacoco/jacoco.xml,infrastructure/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+		<sonar.organization>challenger-pos</sonar.organization>
+		<sonar.projectKey>challenger-pos_stock-service</sonar.projectKey>
+		<sonar.projectName>Stock Service</sonar.projectName>
+		<sonar.sources>src/main</sonar.sources>
+		<sonar.tests>src/test</sonar.tests>
+		<sonar.coverage.jacoco.xmlReportPaths>core/target/site/jacoco/jacoco.xml,application/target/site/jacoco/jacoco.xml,infrastructure/target/site/jacoco/jacoco.xml,usecase/target/site/jacoco/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
 		<sonar.coverage.exclusions>**/core/exception/**,**/config/**,**/security/**,**/message/**,**/persistence/entity/**,**/*Config.java,**/*Entity.java,**/*Listener.java,**/*Filter.java,**/StockServiceApplication.java</sonar.coverage.exclusions>
 	</properties>
 
