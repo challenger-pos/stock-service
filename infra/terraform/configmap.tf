@@ -70,11 +70,11 @@ resource "kubernetes_config_map" "app_config" {
     LOGGING_PATTERN_CONSOLE                 = "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
     # Datadog
-    DD_TRACE_ENABLED                      = "true"
+    DD_TRACE_ENABLED                      = "false"
     DD_SERVICE                            = var.service
     DD_TRACE_HTTP_CLIENT_TAG_QUERY_STRING = "true"
-    DD_TRACE_JDBC_ENABLED                 = "true"
-    DD_TRACE_LOGS_INJECTION               = "true"
+    DD_TRACE_JDBC_ENABLED                 = "false"
+    DD_TRACE_LOGS_INJECTION               = "false"
 
     # Datadog StatsD (DogStatsD for custom metrics)
     DATADOG_STATSD_HOST = var.datadog_agent_host
