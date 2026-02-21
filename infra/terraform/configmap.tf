@@ -75,6 +75,7 @@ resource "kubernetes_config_map" "app_config" {
     DD_TRACE_HTTP_CLIENT_TAG_QUERY_STRING = "true"
     DD_TRACE_JDBC_ENABLED                 = "false"
     DD_TRACE_LOGS_INJECTION               = "false"
+    features.datadog.enabled              = "false"
 
     # Datadog StatsD (DogStatsD for custom metrics)
     DATADOG_STATSD_HOST = var.datadog_agent_host
