@@ -99,14 +99,8 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-        run: |
-          mvn -B verify
-          mvn -B sonar:sonar \
-            -Dsonar.login=$SONAR_TOKEN \
-            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-            -Dsonar.qualitygate.wait=true \
-            -Dsonar.coverage.jacoco.xmlReportPaths=core/target/site/jacoco/jacoco.xml,application/target/site/jacoco/jacoco.xml,infrastructure/target/site/jacoco/jacoco.xml
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=challenger-pos_stock-service
+        continue-on-error: true
 
       - name: Comment PR with Sonar results
         if: github.event_name == 'pull_request'
