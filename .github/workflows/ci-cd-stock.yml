@@ -100,7 +100,7 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn -B verify
+          mvn -B clean verify
           mvn -B sonar:sonar -Dsonar.projectKey=challenger-pos_stock-service -Dsonar.automatic.analysis.disabled=true
         continue-on-error: true
 
