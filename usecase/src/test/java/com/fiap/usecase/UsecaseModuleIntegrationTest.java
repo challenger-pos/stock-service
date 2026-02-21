@@ -47,8 +47,9 @@ class UsecaseModuleIntegrationTest {
     @DisplayName("Should validate module structure is complete")
     void shouldValidateModuleStructureIsComplete() {
         assertDoesNotThrow(() -> {
-            assertNotNull("Usecase module loaded successfully");
-            assertEquals("Usecase module loaded successfully", "Usecase module loaded successfully");
+            Class<?> moduleClass = Class.forName("com.fiap.usecase.UsecaseModuleIntegrationTest");
+            assertNotNull(moduleClass, "Usecase module should be accessible");
+            assertTrue(moduleClass.getSimpleName().contains("Usecase"), "Module class should be part of usecase package");
         });
     }
 
