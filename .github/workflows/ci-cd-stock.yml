@@ -115,7 +115,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: `## 📊 Code Quality Report\n\nSonarCloud analysis completed.\n\n[View report](https://sonarcloud.io/dashboard?id=${{ secrets.SONAR_PROJECT_KEY }})`
+              body: `## 📊 Code Quality Report\n\nSonarCloud analysis completed.\n\n[View report](https://sonarcloud.io/dashboard?id=challenger-pos_stock-service)`
             });
 
   push-and-deploy:
