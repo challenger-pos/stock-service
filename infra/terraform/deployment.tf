@@ -66,42 +66,30 @@ resource "kubernetes_deployment" "stock_service" {
           }
 
           # Datadog Java Agent and env vars (explicit so Agent/StatsD are reachable)
-          # env {
-          #   name  = "JAVA_TOOL_OPTIONS"
-          #   value = "-javaagent:/dd/dd-java-agent.jar"
-          # }
-          # env {
-          #   name  = "DD_SERVICE"
-          #   value = var.service
-          # }
-          # env {
-          #   name  = "DD_ENV"
-          #   value = var.environment
-          # }
-          # env {
-          #   name  = "DD_VERSION"
-          #   value = var.app_version
-          # }
-          # env {
-          #   name  = "DD_LOGS_INJECTION"
-          #   value = "true"
-          # }
-          # env {
-          #   name  = "DD_AGENT_HOST"
-          #   value = var.datadog_agent_host
-          # }
-          # env {
-          #   name  = "DD_DOGSTATSD_PORT"
-          #   value = "8125"
-          # }
-          # env {
-          #   name  = "DATADOG_STATSD_HOST"
-          #   value = var.datadog_agent_host
-          # }
-          # env {
-          #   name  = "DATADOG_STATSD_PORT"
-          #   value = "8125"
-          # }
+          env {
+            name  = "DD_SERVICE"
+            value = var.service
+          }
+          env {
+            name  = "DD_ENV"
+            value = var.environment
+          }
+          env {
+            name  = "DD_VERSION"
+            value = var.app_version
+          }
+          env {
+            name  = "DD_LOGS_INJECTION"
+            value = "true"
+          }
+          env {
+            name  = "DD_AGENT_HOST"
+            value = var.datadog_agent_host
+          }
+          env {
+            name  = "DD_DOGSTATSD_PORT"
+            value = "8125"
+          }
 
           # Environment variables from ConfigMap
           env_from {

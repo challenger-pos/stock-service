@@ -25,6 +25,7 @@
 ## Índice
 - [Quick Start](#quick-start)
 - [Integração com API Gateway](#integração-com-api-gateway)
+- [Arquitetura](#arquitetura)
 - [Arquitetura e Saga Coreografado](#arquitetura-e-saga-coreografado)
 - [Operações com Terraform](#operações-com-terraform)
 - [Configurações](#configurações)
@@ -74,6 +75,24 @@ Este microserviço funciona **apenas através do API Gateway** (https://github.c
 - Rate limiting e segurança
 
 Todos os endpoints deste serviço são acessados via rotas gerenciadas pelo gateway, nunca diretamente.
+
+## Arquitetura
+
+O stock-service é um microserviço independente com sua própria base de dados, projetado para operar em um ecossistema distribuído através do padrão Saga coreografado.
+
+### Diagrama de Arquitetura
+
+![Diagrama de Arquitetura](docs/diagrama-stock.png)
+
+### Componentes da Arquitetura
+
+- **API Gateway**: Endpoint central para autenticação e roteamento
+- **Lambda**: Serviço de autenticação JWT
+- **stock-service**: Microserviço Spring Boot com lógica de negócio
+- **RDS PostgreSQL**: Base de dados dedicada para estoque
+- **SQS**: Filas para comunicação assíncrona entre serviços
+- **Datadog**: Monitoramento, métricas e tracing distribuído
+- **Swagger UI**: Documentação interativa da API
 
 ## Arquitetura e Saga Coreografado
 

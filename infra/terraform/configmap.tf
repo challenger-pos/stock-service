@@ -42,7 +42,7 @@ resource "kubernetes_config_map" "app_config" {
     SQS_QUEUE_STOCK_RESERVED = aws_sqs_queue.stock_reserved.name
     SQS_QUEUE_STOCK_FAILED   = aws_sqs_queue.stock_failed.name
 
-    # Spring Cloud AWS SQS Properties
+    # Apenas nomes das filas para uso manual pela aplicação
     "sqs.queue.stock-requested"       = aws_sqs_queue.stock_requested.name
     "sqs.queue.stock-approved"        = aws_sqs_queue.stock_approved.name
     "sqs.queue.stock-cancel-requested" = aws_sqs_queue.stock_cancel_requested.name
@@ -70,12 +70,17 @@ resource "kubernetes_config_map" "app_config" {
     LOGGING_PATTERN_CONSOLE                 = "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
 
     # Datadog
-    DD_TRACE_ENABLED                      = "false"
+    DD_TRACE_ENABLED                      = "true"
     DD_SERVICE                            = var.service
+    DD_ENV                                = var.environment
+    DD_VERSION                            = var.app_version
     DD_TRACE_HTTP_CLIENT_TAG_QUERY_STRING = "true"
-    DD_TRACE_JDBC_ENABLED                 = "false"
-    DD_TRACE_LOGS_INJECTION               = "false"
-    features.datadog.enabled              = "false"
+    DD_TRACE_JDBC_ENABLED                 = "true"
+    DD_TRACE_LOGS_INJECTION               = "true"
+    DD_LOGS_INJECTION                     = "true"
+    DD_AGENT_HOST                         = var.datadog_agent_host
+    DD_DOGSTATSD_PORT                     = "8125"
+    "features.datadog.enabled"              = "true"
 
     # Datadog StatsD (DogStatsD for custom metrics)
     DATADOG_STATSD_HOST = var.datadog_agent_host
