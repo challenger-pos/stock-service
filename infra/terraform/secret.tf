@@ -16,5 +16,9 @@ resource "kubernetes_secret" "app_secret" {
 
     # JWT Secret
     JWT_SECRET = var.jwt_secret
+
+    # AWS Credentials
+    AWS_ACCESS_KEY_ID     = var.aws_access_key_id
+    AWS_SECRET_ACCESS_KEY = var.aws_secret_access_key
   }
 }

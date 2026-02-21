@@ -25,7 +25,7 @@ public class DatadogConfig {
     }
 
     @Bean
-    @ConditionalOnProperty(name = "datadog.enabled", havingValue = "true", matchIfMissing = false)
+    @ConditionalOnProperty(name = "datadog.enabled", havingValue = "true")
     public StatsDClient statsDClient() {
         try {
             return new NonBlockingStatsDClientBuilder()

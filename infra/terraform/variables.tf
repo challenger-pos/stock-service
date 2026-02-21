@@ -158,6 +158,18 @@ variable "jwt_secret" {
   default     = "ZHVtbXktc2VjcmV0LWtleS1mb3Itand0LWhzMjU2LXN1cGVyLXNlY3VyZQ=="
 }
 
+variable "aws_access_key_id" {
+  description = "AWS Access Key ID"
+  type        = string
+  sensitive   = true
+}
+
+variable "aws_secret_access_key" {
+  description = "AWS Secret Access Key"
+  type        = string
+  sensitive   = true
+}
+
 # ===============================================
 # DATADOG
 # ===============================================
