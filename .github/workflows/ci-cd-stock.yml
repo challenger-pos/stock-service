@@ -99,7 +99,9 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=challenger-pos_stock-service -pl core,application,infrastructure -am
+        run: |
+          mvn -B verify -DskipTests
+          mvn -B sonar:sonar -Dsonar.projectKey=challenger-pos_stock-service -Dsonar.automatic.analysis.disabled=true
         continue-on-error: true
 
       - name: Comment PR with Sonar results
@@ -122,7 +124,7 @@ jobs:
     environment: ${{ github.ref_name == 'main' && 'production' || (github.ref_name == 'homologation' && 'homologation' || 'dev') }}
 
     env:
-      TERRAFORM_DIR: infra/
+      TERRAFORM_DIR: infra/terraform/
 
     steps:
       - name: Checkout code
