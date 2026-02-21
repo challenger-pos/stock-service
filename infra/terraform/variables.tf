@@ -151,20 +151,6 @@ variable "aws_region" {
   default     = "us-east-2"
 }
 
-variable "aws_access_key" {
-  description = "AWS Access Key para SQS"
-  type        = string
-  sensitive   = true
-}
-  # Sem default - deve ser fornecido via secret.tfvars
-
-variable "aws_secret_key" {
-  description = "AWS Secret Key para SQS"
-  type        = string
-  sensitive   = true
-}
-  # Sem default - deve ser fornecido via secret.tfvars
-
 variable "jwt_secret" {
   description = "JWT Secret"
   type        = string
