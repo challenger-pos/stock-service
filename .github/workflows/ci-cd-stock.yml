@@ -99,7 +99,7 @@ jobs:
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=challenger-pos_stock-service
+        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=challenger-pos_stock-service -pl core,application,infrastructure -am
         continue-on-error: true
 
       - name: Comment PR with Sonar results
