@@ -188,6 +188,43 @@
 
 	<build>
 		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<version>3.2.0</version>
+				<executions>
+					<execution>
+						<id>add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/core/src/main/java</source>
+								<source>${project.basedir}/application/src/main/java</source>
+								<source>${project.basedir}/infrastructure/src/main/java</source>
+								<source>${project.basedir}/usecase/src/main/java</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>add-test-source</id>
+						<phase>generate-test-sources</phase>
+						<goals>
+							<goal>add-test-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.basedir}/core/src/test/java</source>
+								<source>${project.basedir}/application/src/test/java</source>
+								<source>${project.basedir}/infrastructure/src/test/java</source>
+								<source>${project.basedir}/usecase/src/test/java</source>
+							</sources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			
 			<!-- Jacoco -->
 			<plugin>
