@@ -1,0 +1,50 @@
+# Homologation Profile Configuration
+spring:
+  config:
+    activate:
+      on-profile: hml
+
+# Logging for Homologation
+logging:
+  level:
+    root: INFO
+    com.fiap: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: WARN
+    org.hibernate: INFO
+    io.awspring.cloud.sqs: INFO
+    software.amazon.awssdk: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Datadog (enabled in homologation)
+dd:
+  trace:
+    enabled: true
+
+# Custom feature flag for Datadog
+features:
+  datadog:
+    enabled: true
+
+# AWS SQS Configuration
+aws:
+  region: ${AWS_REGION:us-east-1}
+
+# Homologation-specific configurations
+spring:
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+# Actuator for homologation
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health,info,liveness,readiness,prometheus

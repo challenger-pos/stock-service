@@ -1,0 +1,50 @@
+# Production Profile Configuration
+spring:
+  config:
+    activate:
+      on-profile: prod
+
+# Logging for Production
+logging:
+  level:
+    root: WARN
+    com.fiap: INFO
+    org.springframework.web: WARN
+    org.springframework.security: ERROR
+    org.hibernate: ERROR
+    io.awspring.cloud.sqs: WARN
+    software.amazon.awssdk: WARN
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Datadog (enabled in production)
+dd:
+  trace:
+    enabled: true
+
+# Custom feature flag for Datadog
+features:
+  datadog:
+    enabled: true
+
+# AWS SQS Configuration
+aws:
+  region: ${AWS_REGION:us-east-1}
+
+# Production-specific configurations
+spring:
+  jpa:
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: false
+
+# Actuator security for production
+management:
+  endpoint:
+    health:
+      show-details: when-authorized
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus

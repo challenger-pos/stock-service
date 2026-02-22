@@ -39,22 +39,22 @@ resource "kubernetes_deployment" "stock_service" {
       }
 
       spec {
-        # Volume for Datadog Java Agent (commented out)
-        # volume {
-        #   name = "dd-java-agent"
-        #   empty_dir {}
-        # }
+        #Volume for Datadog Java Agent (commented out)
+        volume {
+          name = "dd-java-agent"
+          empty_dir {}
+        }
 
         # InitContainer: download Datadog Java Agent (commented out)
-        # init_container {
-        #   name  = "dd-java-agent-init"
-        #   image = "curlimages/curl:8.10.1"
-        #   command = ["sh", "-c", "curl -L -o /dd/dd-java-agent.jar https://dtdg.co/latest-java-tracer"]
-        #   volume_mount {
-        #     name       = "dd-java-agent"
-        #     mount_path = "/dd"
-        #   }
-        # }
+        init_container {
+          name  = "dd-java-agent-init"
+          image = "curlimages/curl:8.10.1"
+          command = ["sh", "-c", "curl -L -o /dd/dd-java-agent.jar https://dtdg.co/latest-java-tracer"]
+          volume_mount {
+            name       = "dd-java-agent"
+            mount_path = "/dd"
+          }
+        }
 
         container {
           name  = var.app_name
