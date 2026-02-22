@@ -90,6 +90,30 @@ resource "kubernetes_deployment" "stock_service" {
             name  = "DD_DOGSTATSD_PORT"
             value = "8125"
           }
+          env {
+            name  = "DATADOG_STATSD_HOST"
+            value = var.datadog_agent_host
+          }
+          env {
+            name  = "DATADOG_STATSD_PORT"
+            value = "8125"
+          }
+          env {
+            name  = "DD_TRACE_DEBUG"
+            value = "false"
+          }
+          env {
+            name  = "DD_TRACE_AGENT_PORT"
+            value = "8126"
+          }
+          env {
+            name  = "DD_AGENT_PORT"
+            value = "8126"
+          }
+          env {
+            name  = "JAVA_TOOL_OPTIONS"
+            value = "-javaagent:/dd/dd-java-agent.jar"
+          }
 
           # Environment variables from ConfigMap
           env_from {
@@ -105,10 +129,10 @@ resource "kubernetes_deployment" "stock_service" {
             }
           }
 
-          # volume_mount {
-          #   name       = "dd-java-agent"
-          #   mount_path = "/dd"
-          # }
+          volume_mount {
+            name       = "dd-java-agent"
+            mount_path = "/dd"
+          }
 
           # Resource limits
           resources {

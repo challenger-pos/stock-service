@@ -23,10 +23,10 @@ logging:
     software.amazon.awssdk: INFO
     software.amazon.awssdk.request: INFO
 
-# Datadog (disabled in dev)
+# Datadog (enabled in development)
 dd:
   trace:
-    enabled: false
+    enabled: true
 
 # AWS SQS Configuration
 aws:
