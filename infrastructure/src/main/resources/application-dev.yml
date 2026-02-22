@@ -8,17 +8,22 @@ spring:
 logging:
   level:
     root: INFO
-    com.fiap: DEBUG
+    com.fiap: INFO
     org.springframework.web: INFO
     org.springframework.security: WARN
     org.hibernate: WARN
-    io.awspring.cloud.sqs: DEBUG
+    io.awspring.cloud.sqs: INFO
     software.amazon.awssdk: INFO
 
-# Datadog (disabled in dev)
+# Datadog (enabled in dev)
 dd:
   trace:
-    enabled: false
+    enabled: true
+
+# Custom feature flag for Datadog
+features:
+  datadog:
+    enabled: true
 
 # AWS SQS Configuration
 aws:

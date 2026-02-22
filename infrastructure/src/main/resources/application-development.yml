@@ -12,21 +12,21 @@ spring:
 # Logging for Development
 logging:
   level:
-    root: DEBUG
-    com.fiap: DEBUG
-    org.springframework.web: DEBUG
-    org.springframework.security: DEBUG
+    root: INFO
+    com.fiap: INFO
+    org.springframework.web: INFO
+    org.springframework.security: WARN
     org.hibernate: INFO
     org.hibernate.SQL: DEBUG
     org.hibernate.type.descriptor.sql.BasicBinder: TRACE
-    io.awspring.cloud.sqs: DEBUG
-    software.amazon.awssdk: DEBUG
-    software.amazon.awssdk.request: DEBUG
+    io.awspring.cloud.sqs: INFO
+    software.amazon.awssdk: INFO
+    software.amazon.awssdk.request: INFO
 
-# Datadog (disabled in dev)
+# Datadog (enabled in development)
 dd:
   trace:
-    enabled: false
+    enabled: true
 
 # AWS SQS Configuration
 aws:
