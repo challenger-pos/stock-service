@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - homologation
+      - develop
   pull_request:
   workflow_dispatch:
 
