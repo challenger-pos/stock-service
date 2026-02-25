@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: stock-service-config
+  namespace: stock
+data:
+  # Spring Boot
+  SPRING_PROFILES_ACTIVE: "homologation"
+  SERVER_PORT: "8080"
+  SERVER_SERVLET_CONTEXT_PATH: "/api"
+
+  # Database (override with Secret if needed)
+  SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+  SPRING_JPA_HIBERNATE_DDL_AUTO: "none"
+  SPRING_JPA_SHOW_SQL: "false"
+  SPRING_JPA_OPEN_IN_VIEW: "false"
+  SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.PostgreSQLDialect
+  SPRING_LIQUIBASE_ENABLED: "true"
+  SPRING_LIQUIBASE_CHANGE_LOG: classpath:db/changelog/main-changelog.xml
+
+  # AWS
+  AWS_REGION: "us-east-2"
+
+  # SQS queue names (adjust to your queues)
+  sqs.queue.stock-requested: "work-order-stock-requested"
+  sqs.queue.stock-approved: "work-order-stock-approved"
+  sqs.queue.stock-cancel-requested: "work-order-stock-cancel-requested"
+  sqs.queue.stock-reserved: "stock-reserved-queue"
+  sqs.queue.stock-failed: "stock-failed-queue"
+
+  # Actuator
+  MANAGEMENT_ENDPOINT_HEALTH_PROBES_ENABLED: "true"
+  MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE: "health,info,liveness,readiness,prometheus"
+  SPRINGDOC_API_DOCS_PATH: "/documentation"
+
+  # Datadog
+  DD_TRACE_ENABLED: "true"
+  DD_SERVICE: "stock-service"
+  DD_TRACE_HTTP_CLIENT_TAG_QUERY_STRING: "true"
+  DD_TRACE_JDBC_ENABLED: "true"
+  DD_TRACE_LOGS_INJECTION: "true"
+  DATADOG_STATSD_HOST: "datadog-agent.default.svc.cluster.local"
+  DATADOG_STATSD_PORT: "8125"
