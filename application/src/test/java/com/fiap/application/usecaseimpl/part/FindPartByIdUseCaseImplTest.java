@@ -1,0 +1,56 @@
+package com.fiap.application.usecaseimpl.part;
+
+import com.fiap.application.gateway.PartGateway;
+import com.fiap.core.domain.Part;
+import com.fiap.core.exception.BusinessRuleException;
+import com.fiap.core.exception.NotFoundException;
+import com.fiap.usecase.part.FindPartByIdUseCase;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InOrder;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.UUID;
+
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+class FindPartByIdUseCaseImplTest {
+
+    @Mock
+    PartGateway partGateway;
+
+    @Mock
+    Part part;
+
+    @Test
+    void shouldReturnPartWhenFound() throws NotFoundException, BusinessRuleException {
+        UUID id = UUID.randomUUID();
+        when(partGateway.findById(id)).thenReturn(part);
+
+        FindPartByIdUseCase useCase = new FindPartByIdUseCaseImpl(partGateway);
+        Part result = useCase.execute(id);
+
+        assertSame(part, result);
+
+        InOrder inOrder = inOrder(partGateway);
+        inOrder.verify(partGateway).findById(id);
+        verifyNoMoreInteractions(partGateway);
+    }
+
+    @Test
+    void shouldThrowNotFoundWhenEmpty() throws BusinessRuleException, NotFoundException {
+        UUID id = UUID.randomUUID();
+        when(partGateway.findById(id)).thenThrow(new NotFoundException("Part not found", "PART-404"));
+
+        FindPartByIdUseCase useCase = new FindPartByIdUseCaseImpl(partGateway);
+
+        assertThrows(NotFoundException.class, () -> useCase.execute(id));
+
+        verify(partGateway).findById(id);
+        verifyNoMoreInteractions(partGateway);
+    }
+}
